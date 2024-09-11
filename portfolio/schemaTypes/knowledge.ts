@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import {defineArrayMember, defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'knowledge',
@@ -12,25 +12,25 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'string',
+      name: 'item',
+      title: 'Item',
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'icon',
+          fields: [
+            {type: 'string', name: 'label'},
+            {type: "iconPicker", name: 'value'},
+            {type: 'image', name: "alternative"}
+          ]})],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'icon',
-      title: 'Icon',
-      type: 'string',
-    }),
-    defineField({
-      name: 'iconLib',
-      title: 'IconLib',
-      type: 'string',
-    }),
-    defineField({
-      name: 'iconImg',
-      title: 'IconImg',
-      type: 'image',
+      name: 'order',
+      title: 'Order',
+      type: 'number',
+      validation: (Rule) => Rule.required(),
     }),
   ],
 })

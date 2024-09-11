@@ -30,11 +30,11 @@ export class LandingComponent {
   }
 
   updateShadowPosition() {
-    //Get the position of the source element
+    // Get the position of the source element
     if(this.profileImage.nativeElement?.getBoundingClientRect){
       const sourceRect = this.profileImage.nativeElement?.getBoundingClientRect();
 
-      //Set the position of the target element
+      // Set the position of the target element
       this.profileShadow.nativeElement.style.top = `${sourceRect.top - sourceRect.height/3}px`;
       this.profileShadow.nativeElement.style.left = `${sourceRect.left+sourceRect.width/3}px`;
     }

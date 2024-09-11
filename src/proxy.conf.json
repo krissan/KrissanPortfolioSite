@@ -1,0 +1,10 @@
+{
+  "/sanity-api": {
+    "target": "https://5l7dah13.apicdn.sanity.io",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/sanity-api": ""
+    }
+  }
+}

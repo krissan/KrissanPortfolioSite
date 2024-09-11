@@ -1,0 +1,43 @@
+.knowledge-category-container {
+  @apply p-4;
+}
+
+.category-section {
+  @apply mb-6;
+}
+
+.category-title {
+  @apply text-xl font-bold mb-2;
+}
+
+.icon-list {
+  @apply flex space-x-4;
+}
+
+.icon-item {
+  @apply relative w-16 h-16 cursor-pointer transition-transform transform;
+}
+
+.group:hover .icon-item {
+  transform: rotateY(180deg);
+  transition: transform 0.3s;
+}
+
+.icon-flip {
+  @apply relative flex justify-center items-center w-full h-full bg-gray-200 border border-gray-300 rounded-lg group-hover:rotate-y-180;
+  transition: transform 0.3s ease-in-out;
+}
+
+.icon-label {
+  @apply absolute w-full h-full bg-gray-800 text-white flex justify-center items-center rounded-lg backface-hidden;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.group-hover .icon-label {
+  @apply visible;
+}
+
+.icon-flip i {
+  @apply text-4xl;
+}

@@ -12,8 +12,9 @@ module.exports = {
     colors: {
       'white': '#fffbf2',
       'peach': '#ffdbc0',
-      'black': '#303030',
+      'black': '#1b1b1b',
       'blue': '#3366CC',
+      'red': '#f87060'
     },
     fontFamily: {
       sans: ['Poppins', 'sans-serif'], // Add Poppins as the default sans font

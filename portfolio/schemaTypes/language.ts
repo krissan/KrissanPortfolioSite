@@ -40,5 +40,11 @@ export default defineType({
       type: 'boolean',
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'order',
+      title: 'Order',
+      type: 'number',
+      validation: (Rule) => Rule.required(),
+    }),
   ],
 })

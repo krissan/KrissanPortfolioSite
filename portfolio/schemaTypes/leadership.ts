@@ -23,5 +23,10 @@ export default defineType({
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'site',
+      title: 'Site',
+      type: 'url',
+    })
   ],
 })

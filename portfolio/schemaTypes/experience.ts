@@ -38,7 +38,12 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'string',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'string',
+          name: 'point',
+        })],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -47,14 +52,9 @@ export default defineType({
       type: "array",
       of: [
         defineArrayMember({
-          type: 'object',
+          type: 'string',
           name: 'icon',
-          fields: [
-            {type: 'string', name: 'label'},
-            {type: 'string', name: 'value'},
-            {type: 'string', name: 'lib'},
-            {type: 'image', name: "alternative"}
-          ]})],
+          })],
       validation: (Rule) => Rule.required(),
     }),
   ],

@@ -1,7 +1,51 @@
 <main class="main" class="font-sans scroll-smooth">
   <app-landing #landingSection></app-landing>
   <div class="main-content">
-    <knowledge-section></knowledge-section>
+    <div #knowledgeSection>
+      <div *ngIf="isLoadingKnowledge">Loading Knowledge...</div>
+      <div *ngIf="!isLoadingKnowledge && knowledge">
+        <knowledge-section [knowledgeData]="knowledge"></knowledge-section>
+      </div>
+    </div>
+
+    <div #experienceSection>
+      <div *ngIf="isLoadingExperience">Loading Experience...</div>
+      <div *ngIf="!isLoadingExperience && experiences">
+        <experience-section [experienceData]="experiences"></experience-section>
+      </div>
+    </div>
+
+    <div #credentialSection>
+      <div *ngIf="isLoadingCredential">Loading Credential...</div>
+      <div *ngIf="!isLoadingCredential && credentials">
+        <credential-section [credentialData]="credentials"></credential-section>
+      </div>
+    </div>
+
+    <div #projectSection>
+      <div *ngIf="isLoadingProject">Loading Project...</div>
+      <div *ngIf="!isLoadingProject && projects">
+        <project-section [projectData]="projects"></project-section>
+      </div>
+    </div>
+
+    <div #leadershipSection>
+      <div *ngIf="isLoadingLeadership">Loading Leadership...</div>
+      <div *ngIf="!isLoadingLeadership && leadership">
+        <leadership-section [leadershipData]="leadership"></leadership-section>
+      </div>
+    </div>
+
+    <div #languageSection>
+      <div *ngIf="isLoadingLanguage">Loading Language...</div>
+      <div *ngIf="!isLoadingLanguage && languages">
+        <language-section [languageData]="languages"></language-section>
+      </div>
+    </div>
+
+    <div *ngIf="error">
+      {{ error }}
+    </div>
   </div>
 </main>
 <router-outlet />

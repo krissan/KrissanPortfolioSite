@@ -1,8 +1,8 @@
 import {defineField, defineType} from 'sanity'
 
 export default defineType({
-  name: 'credentials',
-  title: 'Credentials',
+  name: 'credential',
+  title: 'Credential',
   type: 'document',
   fields: [
     defineField({
@@ -20,7 +20,13 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'image',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'order',
+      title: 'Order',
+      type: 'number',
       validation: (Rule) => Rule.required(),
     }),
   ],
