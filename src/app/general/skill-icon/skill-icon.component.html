@@ -1,0 +1,13 @@
+<div class="flex justify-center items-center h-10 w-10 mx-1 bg-opacity-20 bg-black">
+  <ng-container *ngIf="alternative?.asset?._ref; else iconTemplate">
+    <img [src]="getSanityImageUrl(alternative?.asset!._ref)" [alt]="alternative?.altText || label" class="object-cover w-full h-full" />
+  </ng-container>
+
+  <ng-template #iconTemplate>
+    <ng-container [ngSwitch]="icon?.provider">
+      <fa-icon *ngSwitchCase="'fa'" [icon]="[iconPrefix, iconName]" size="2x" class="flex items-center justify-center"></fa-icon>
+      <div *ngSwitchCase="'si'" [innerHTML]="simpleIconSvg" class="flex items-center justify-center w-8 h-8"></div>
+      <span *ngSwitchDefault>{{ label }}</span>
+    </ng-container>
+  </ng-template>
+</div>

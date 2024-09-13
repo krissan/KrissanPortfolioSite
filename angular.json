@@ -34,7 +34,9 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/aos/dist/aos.css"
+              "node_modules/aos/dist/aos.css",
+              "node_modules/framework7-icons/css/framework7-icons.css" ,
+              "node_modules/material-design-icons/iconfont/material-icons.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -102,7 +104,9 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/aos/dist/aos.css"
+              "node_modules/aos/dist/aos.css",
+              "node_modules/framework7-icons/css/framework7-icons.css" ,
+              "node_modules/material-design-icons/iconfont/material-icons.css"
             ],
             "scripts": []
           }

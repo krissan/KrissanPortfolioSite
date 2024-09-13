@@ -8,9 +8,11 @@ import { CredentialComponent } from './section/credential/credential.component';
 import { LeadershipComponent } from './section/leadership/leadership.component';
 import { LanguageComponent } from './section/language/language.component';
 import { SanityService } from './sanity.service';
-import { Experience, Knowledge, Language, Leadership, Project, Credential } from '../typings';
+import { Experience, Knowledge, Language, Leadership, Project, Credential, Item } from '../typings';
 import { catchError, concatMap, of, Subject, takeUntil, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { IconService } from './general/icon/icon.service';
+import { UtilService } from './general/util/util.service';
 
 
 @Component({
@@ -40,43 +42,45 @@ export class AppComponent {
 
   private destroy = new Subject<void>();
 
-  constructor(private sanityService: SanityService) {}
+  constructor(private sanityService: SanityService, private iconService: IconService, private utilService: UtilService) {}
 
-  ngOnInit(): void {
-    this.loadData();
+  async ngOnInit(): Promise<void> {
+    await this.loadData();
   }
 
-  loadData(): void {
-    console.log("start");
+  async loadData(): Promise<void> {
     // Sequentially load all datasets
     this.sanityService.fetchKnowledge().pipe(
-      tap(data => {
-        console.log(data);
-        this.knowledge = data.result;
+      tap(async data => {
+        this.knowledge = this.utilService.customSort(data.result,'order');
+        const icons = this.knowledge.flatMap(category => category.item).filter((item:Item) => !  this.utilService.isEmpty(item.value));
+        console.log(this.knowledge);
+        await this.iconService.addIconList(icons);
         this.isLoadingKnowledge = false;
       }),
       concatMap(() => this.sanityService.fetchExperience()),
       tap(data => {
-        this.experiences = data;
+        this.experiences = this.utilService.customSort(data.result,'startDate');
         this.isLoadingExperience = false;
       }),
       concatMap(() => this.sanityService.fetchCredential()),
       tap(data => {
-        this.credentials = data;
+        this.credentials = this.utilService.customSort(data.result,'order');
         this.isLoadingCredential = false;
       }),
       concatMap(() => this.sanityService.fetchProject()),
       tap(data => {
-        this.projects = data;
+        this.projects = this.utilService.customSort(data.result,'startDate');
         this.isLoadingProject = false;
       }),
       concatMap(() => this.sanityService.fetchLeadership()),
       tap(data => {
-        this.leadership = data;
+        this.leadership = this.utilService.customSort(data.result,'startDate');
         this.isLoadingLeadership = false;
       }),
       concatMap(() => this.sanityService.fetchLanguage()),
       tap(data => {
+        this.languages = this.utilService.customSort(data.result,'order');
         this.languages = data;
         this.isLoadingLanguage = false;
       }),
