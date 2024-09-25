@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "node -r dotenv/config mynode.js && ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "build": "node -r dotenv/config mynode.js && ng build",
+    "watch": "node -r dotenv/config mynode.js && ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:KrissanPortfolioSite": "node dist/krissan-portfolio-site/server/server.mjs"
   },
@@ -29,8 +29,6 @@
     "aos": "^2.3.4",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
-    "framework7-icons": "^5.0.5",
-    "material-design-icons": "^3.0.1",
     "rollup": "^4.22.4",
     "rxjs": "~7.8.0",
     "simple-icons": "^13.9.0",
