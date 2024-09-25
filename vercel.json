@@ -3,8 +3,6 @@
     "env": {
       "SANITY_PROJECT_ID": "@sanity_project_id",
       "DATASET": "@dataset"
-    },
-    "command": "npm run vercel-build",
-    "outputDirectory": "dist/krissan-portfolio-site"
+    }
   }
 }
