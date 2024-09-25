@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PageLinkComponent } from './pageLink.component';
+import { DateRangeComponent } from './date-range.component';
 
-describe('PageLinkComponent', () => {
-  let component: PageLinkComponent;
-  let fixture: ComponentFixture<PageLinkComponent>;
+describe('DateRangeComponent', () => {
+  let component: DateRangeComponent;
+  let fixture: ComponentFixture<DateRangeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PageLinkComponent]
+      imports: [DateRangeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PageLinkComponent);
+    fixture = TestBed.createComponent(DateRangeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

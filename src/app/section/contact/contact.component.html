@@ -1,0 +1,19 @@
+<div class="flex justify-center items-center min-h-screen">
+  <div class="m-auto flex flex-col items-center">
+    <button
+      class="flex justify-center items-center bg-black rounded-full mb-16 w-1/2 aspect-square"
+      (mouseover)="buttonState = 'hover'"
+      (mouseleave)="buttonState = 'no-hover'"
+      [@buttonGrow]="buttonState"
+      (click)="openEmail()"
+    >
+      <img src="assets/emailIcon.svg" alt="Email Icon" class="w-10/12 filter invert" />
+    </button>
+
+    <section-title
+      [@labelAppear]="buttonState"
+    >
+      Let's Get in Touch
+    </section-title>
+  </div>
+</div>

@@ -1,1 +1,19 @@
-<p>projects works!</p>
+<standard-section title="Project" [isLoading]="isLoading">
+  <div *ngFor="let project of projectData" class="flex flex-col md:flex-row mb-4 pb-4">
+    <app-image [src]="project.projectImage.asset!._ref" [alt]="project.projectTitle" class="mr-8 mb-2 w-48 md:w-3/12"/>
+    <div data-aos="fade-right" data-aos-delay="100" class="flex-col pb-4 pr-4 md:w-6/12">
+      <sub-title>{{project.projectTitle}}</sub-title>
+      <date-range startDate="{{project.startDate}}" endDate="{{project.endDate}}" />
+      <div class="flex justify-start mb-2">
+        <link-button *ngIf="project.site" link="{{project.site}}" color="red">SITE</link-button>
+        <link-button *ngIf="project.repo" link="{{project.site}}" color="blue">REPO</link-button>
+      </div>
+      <div class="indent-8">{{project.description}}</div>
+    </div>
+    <div data-aos="fade-left" data-aos-delay="100" class="flex justify-start h-full flex-wrap items-start md:w-3/12">
+      <div *ngFor="let skill of project.skills">
+        <skill-icon [skill]="skill"></skill-icon>
+      </div>
+    </div>
+  </div>
+</standard-section>

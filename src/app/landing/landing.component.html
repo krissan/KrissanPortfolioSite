@@ -1,47 +1,52 @@
-<div #profileShadow class="rounded-full w-24 h-24 bg-peach absolute z-0 md:w-64 md:h-64 sm:w-32 sm:h-32" ></div>
+<div #profileShadow [@fadeInLeft]="animationState" class="rounded-full w-24 h-24 bg-peach absolute z-0 md:w-64 md:h-64 sm:w-32 sm:h-32" ></div>
 <div #intro class="px-8 py-16 bg-white flex h-screen min-h-144 flex-col -z-10 justify-between">
   <div class="flex flex-row justify-between">
-    <div class="flex-col">
-      <div data-aos="fade-right" data-aos-delay="100">Toronto, Ontario, Canada</div>
-      <div data-aos="fade-right" data-aos-delay="200">Canadian Citizen</div>
+    <div [@fadeInUp]="upAnimationState" class="flex-col">
+      <div>Toronto, Ontario, Canada</div>
+      <div>Canadian Citizen</div>
     </div>
-    <div class="flex-row">
-      <a class="pr-3 text-blue" href="https://www.linkedin.com/in/krissanveera/">Linkedin</a>
-      <a class="text-blue" href="https://github.com/krissan">Github</a>
+    <div [@fadeInUp]="upAnimationState" class="flex flex-row">
+      <link-button color="blue" link="https://www.linkedin.com/in/krissanveera/">LINKEDIN</link-button>
+      <link-button color="blue" link="https://github.com/krissan">GITHUB</link-button>
     </div>
   </div>
   <div class="justify-center">
     <div class="flex flex-row items-end justify-between">
-      <div class="text-1xl lg:text-2xl mr-4">
+      <div [@fadeInRight]="animationState" class="text-1xl lg:text-2xl mr-4">
         <div>Software Developer</div>
         <div>With {{yearsExperience}} Years of Experience</div>
         <section-title [textSize]="TitleType.giant">krissan</section-title>
       </div>
-      <img #profileImage src="assets/profile.jpg" alt="Profile Image" class="w-24 h-24 rounded-full object-cover z-10 mt-12 mr-32 md:w-64 md:h-64 sm:w-32 sm:h-32">
+      <img [@fadeInLeft]="animationState" #profileImage src="assets/profile.jpg" alt="Profile Image" class="w-24 h-24 rounded-full object-cover z-10 mt-12 mr-8 md:mr-32 md:w-64 md:h-64 sm:w-32 sm:h-32">
     </div>
-    <section-title [textSize]="TitleType.giant">veerasingam</section-title>
+    <div [@fadeInRight]="animationState">
+      <section-title [@fadeInRight]="animationState" [textSize]="TitleType.giant">veerasingam</section-title>
+    </div>
   </div>
-  <div class="flex flex-row items-center">
+  <div [@fadeInUp]="upAnimationState" class="flex flex-row items-center">
     <div class ="pr-5">krissan32gmail.com</div>
     <div class="flex-1 bg-black h-0.5 "></div>
   </div>
 </div>
-<div data-aos="fade-right" #whoSection class="px-8 pt-48 pb-16 h-screen min-h-144 bg-peach flex flex-col justify-center">
-  <div>
-    <section-title class="text-center">who am i</section-title>
-    <div class="flex-1 bg-black h-0.5 items-center mt-2 mb-6"></div>
-    <div class="mb-4">
-      Software developer with 8 years of experience in full stack development, with both a Bachelors Degree in Computer Science and Certification in UX design.
-    </div>
-    <div class="mb-24">
-      My career has had me working in everything from small teams as part of a start up environment to larger teams as a developer in multinational corporation.
+<div #whoSection class="py-24 sm:py-64 bg-peach flex flex-col justify-center px-8 w-full lg:px-24">
+  <div id="whoContent" class="w-full">
+    <div data-aos="fade-down" data-aos-delay="100">
+      <section-title class="text-center">who am i</section-title>
+      <div class="w-full bg-black h-0.5 items-center mt-2 mb-6"></div>
+      <div class="mb-4 font-medium font-sans">
+        Software developer with 8 years of experience in full stack development, with both a Bachelors Degree in Computer Science and Certification in UX design.
+      </div>
+      <div class="mb-16 font-medium font-sans">
+        My career has had me working in everything from small teams as part of a start up environment to larger teams as a developer in multinational corporation.
+      </div>
     </div>
     <div class="flex flex-row justify-between flex-wrap">
-      <page-link>knowledge</page-link>
-      <page-link>Experience</page-link>
-      <page-link>Credential</page-link>
-      <page-link>Leadership</page-link>
-      <page-link>Languages</page-link>
+      <page-link data-aos="fade-up" data-aos-delay="100" sectionId="knowledgeSection">Knowledge</page-link>
+      <page-link data-aos="fade-up" data-aos-delay="200" sectionId="experienceSection">Experience</page-link>
+      <page-link data-aos="fade-up" data-aos-delay="300" sectionId="credentialSection">Credential</page-link>
+      <page-link data-aos="fade-up" data-aos-delay="300" sectionId="projectSection">Project</page-link>
+      <page-link data-aos="fade-up" data-aos-delay="400" sectionId="leadershipSection">Leadership</page-link>
+      <page-link data-aos="fade-up" data-aos-delay="500" sectionId="languageSection">Languages</page-link>
     </div>
   </div>
 </div>

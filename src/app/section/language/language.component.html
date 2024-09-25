@@ -1,1 +1,32 @@
-<p>language works!</p>
+<side-section [isLoading]="isLoading">
+  <div class="flex flex-col lg:flex-row lg:justify-around w-full items-center my-auto py-0 lg:py-20 lg:my-0">
+    <div data-aos="fade-right" data-aos-delay="100"  class="flex justify-start lg:justify-center pb-8 lg:w-6/12">
+      <section-title [textSize]="TitleType.title" class="m-0 lg:text-center lg:m-auto">LANGUAGES</section-title>
+    </div>
+    <div data-aos="fade-in" data-aos-delay="100" class="w-0 h-0 ml-10 mr-5 lg:w-0.5 bg-black lg:h-full"></div>
+    <div class="flex flex-col justify-around h-full lg:w-5/12">
+      <div *ngFor="let language of languageData" class="flex flex-col lg:flex-row lg:items-center lg:justify-between h-full pb-8">
+        <div data-aos="fade-left" data-aos-delay="100" class="flex flex-row pr-8">
+          <section-title class="w-24 pr-10 text-right ">{{language.langCharacter}}</section-title>
+          <div class="flex flex-col">
+            <sub-title class="mb-2">{{language.level}} in {{language.language}}</sub-title>
+            <ul>
+              <li *ngIf="language.speaking" class="flex flex-row items-center">
+                <div class="w-2 h-2 mr-2 rounded-full bg-black"></div>
+                Speaking
+              </li>
+              <li *ngIf="language.reading" class="flex flex-row items-center">
+                <div class="w-2 h-2 mr-2 rounded-full bg-black"></div>
+                Reading
+              </li>
+              <li *ngIf="language.writing" class="flex flex-row items-center">
+                <div class="w-2 h-2 mr-2 rounded-full bg-black"></div>
+                Writing
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</side-section>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import { KnowledgeComponent } from './section/knowledge/knowledge.component';
@@ -10,15 +10,16 @@ import { LanguageComponent } from './section/language/language.component';
 import { SanityService } from './sanity.service';
 import { Experience, Knowledge, Language, Leadership, Project, Credential, Item } from '../typings';
 import { catchError, concatMap, of, Subject, takeUntil, tap } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { IconService } from './general/icon/icon.service';
 import { UtilService } from './general/util/util.service';
-
+import { ContactComponent } from './section/contact/contact.component';
+import AOS from "aos";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, LandingComponent,KnowledgeComponent, ExperienceComponent, ProjectComponent, CredentialComponent, LeadershipComponent, LanguageComponent],
+  imports: [CommonModule, RouterOutlet, LandingComponent,KnowledgeComponent, ExperienceComponent, ProjectComponent, CredentialComponent, LeadershipComponent, LanguageComponent, ContactComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -42,10 +43,17 @@ export class AppComponent {
 
   private destroy = new Subject<void>();
 
-  constructor(private sanityService: SanityService, private iconService: IconService, private utilService: UtilService) {}
+  constructor(private sanityService: SanityService, private iconService: IconService, private utilService: UtilService, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   async ngOnInit(): Promise<void> {
     await this.loadData();
+    if (isPlatformBrowser(this.platformId)) {
+      this.initAOS();
+    }
+  }
+
+  initAOS(): void {
+    AOS.init();
   }
 
   async loadData(): Promise<void> {
@@ -53,8 +61,7 @@ export class AppComponent {
     this.sanityService.fetchKnowledge().pipe(
       tap(async data => {
         this.knowledge = this.utilService.customSort(data.result,'order');
-        const icons = this.knowledge.flatMap(category => category.item).filter((item:Item) => !  this.utilService.isEmpty(item.value));
-        console.log(this.knowledge);
+        const icons = this.knowledge.flatMap(category => category.item);
         await this.iconService.addIconList(icons);
         this.isLoadingKnowledge = false;
       }),
@@ -81,11 +88,9 @@ export class AppComponent {
       concatMap(() => this.sanityService.fetchLanguage()),
       tap(data => {
         this.languages = this.utilService.customSort(data.result,'order');
-        this.languages = data;
         this.isLoadingLanguage = false;
       }),
       catchError(err => {
-        console.log(err);
         this.error = 'Failed to load data';
         this.isLoadingKnowledge = this.isLoadingExperience = this.isLoadingCredential = this.isLoadingProject = this.isLoadingLeadership = this.isLoadingLanguage = false;
         return of(null);

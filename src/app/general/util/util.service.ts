@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,13 @@ export class UtilService {
 
   isEmpty(value:any) {
     return (value == null || (typeof value === "string" && value.trim().length === 0));
+  }
+
+  // Construct the Sanity image URL from the asset reference.
+  getSanityImageUrl(imageRef: string): string {
+    const imageUrl = imageRef.slice(6,-4);
+    const imageType = imageRef.slice(-3);
+
+    return `https://cdn.sanity.io/images/${environment.sanityProjectId}/${environment.dataset}/${imageUrl}.${imageType}`;
   }
 }

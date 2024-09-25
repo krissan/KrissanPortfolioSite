@@ -1,0 +1,13 @@
+<div
+  class="mr-2 w-24"
+  (mouseover)="buttonState = 'hover'"
+  (mouseleave)="buttonState = 'no-hover'"
+  [@buttonGrow]="buttonState">
+  <a
+  class="font-sans font-bold flex justify-center py-1"
+  [href]="link"
+  target="_blank"
+  >
+  <ng-content></ng-content>
+  </a>
+</div>

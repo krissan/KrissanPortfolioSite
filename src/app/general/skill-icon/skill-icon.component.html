@@ -1,13 +1,26 @@
-<div class="flex justify-center items-center h-10 w-10 mx-1 bg-opacity-20 bg-black">
-  <ng-container *ngIf="alternative?.asset?._ref; else iconTemplate">
-    <img [src]="getSanityImageUrl(alternative?.asset!._ref)" [alt]="alternative?.altText || label" class="object-cover w-full h-full" />
-  </ng-container>
+<div class="animate-pulse flex-col justify-start items-center w-10 mr-4 mb-2" *ngIf="isLoading">
 
-  <ng-template #iconTemplate>
-    <ng-container [ngSwitch]="icon?.provider">
-      <fa-icon *ngSwitchCase="'fa'" [icon]="[iconPrefix, iconName]" size="2x" class="flex items-center justify-center"></fa-icon>
-      <div *ngSwitchCase="'si'" [innerHTML]="simpleIconSvg" class="flex items-center justify-center w-8 h-8"></div>
-      <span *ngSwitchDefault>{{ label }}</span>
+</div>
+<div class="flex-col justify-start items-center w-10 mr-4 mb-2" *ngIf="!isLoading">
+  <div (mouseover)="labelState = 'hover'"
+    (mouseleave)="labelState = 'no-hover'"
+    class="mb-2">
+    <ng-container *ngIf="alternative?.asset?._ref; else iconTemplate">
+      <img [src]="utilService.getSanityImageUrl(alternative?.asset!._ref)" [alt]="alternative?.altText || label" class="object-contain h-8 w-full" />
     </ng-container>
-  </ng-template>
+
+    <ng-template #iconTemplate >
+      <ng-container [ngSwitch]="iconProvider">
+        <fa-icon *ngSwitchCase="'fab' || 'fas'" [icon]="[iconProvider, iconName]" size="2x" class="flex items-center justify-center"></fa-icon>
+        <div *ngSwitchCase="'si'" [innerHTML]="simpleIconSvg" class="flex items-center justify-center w-8"></div>
+        <span *ngSwitchDefault>{{ skill }}</span>
+      </ng-container>
+    </ng-template>
+  </div>
+
+  <div class="pt-1 text-xs text-center text-wrap w-full font-semibold"
+  [@labelAppear]="labelState"
+  >
+    {{ label }}
+  </div>
 </div>

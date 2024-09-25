@@ -1,6 +1,11 @@
-<div class="flex flex-row h-screen min-h-144 px-8 py-16">
-  <section-title>{{title}}</section-title>
-  <div>
-    <ng-content></ng-content>
+<div id="sideContent" class="flex flex-row min-h-screen px-8 py-16">
+  <ng-content *ngIf="!isLoading"></ng-content>
+  <div *ngIf="isLoading" class="flex flex-row w-full my-auto justify-center items-center">
+    <div class="animate-spin h-5 w-5 bg-black mr-8">
+    </div>
+    <div class="animate-spin h-5 w-5 bg-black mr-8">
+    </div>
+    <div class="animate-spin h-5 w-5 bg-black">
+    </div>
   </div>
 </div>

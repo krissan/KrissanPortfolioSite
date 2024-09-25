@@ -1,14 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { TitleComponent } from '../title/title.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'standard-section',
   standalone: true,
-  imports: [TitleComponent],
+  imports: [TitleComponent, CommonModule],
   templateUrl: './standard-section.component.html',
   styleUrl: './standard-section.component.scss'
 })
 export class StandardSectionComponent {
   @Input() title: string = "";
-  @Input() bgColor: string = "bg-white";
+  @Input() isLoading: boolean = true;
 }

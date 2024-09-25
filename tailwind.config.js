@@ -14,6 +14,7 @@ module.exports = {
       'peach': '#ffdbc0',
       'black': '#1b1b1b',
       'blue': '#3366CC',
+      'light-blue': '#52a0f8',
       'red': '#f87060',
       'gray': {
         200: '#e5e7eb',

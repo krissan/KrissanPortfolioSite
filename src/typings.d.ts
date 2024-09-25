@@ -43,8 +43,8 @@ export interface Leadership {
 export interface Project {
   projectTitle: string;
   projectImage: SanityImage;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
   description: string;
   site?: string;
   repo?: string;

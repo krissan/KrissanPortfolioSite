@@ -1,6 +1,14 @@
-<div class="flex flex-col h-screen min-h-144 px-8 py-16">
-  <section-title>{{title}}</section-title>
-  <div>
+<div id="standardContent" class="flex flex-col min-h-screen px-8 py-24 justify-center w-full lg:px-24">
+  <section-title data-aos="fade-down" data-aos-delay="100" class="mb-14">{{title}}</section-title>
+  <div *ngIf="!isLoading">
     <ng-content></ng-content>
+  </div>
+  <div *ngIf="isLoading" class="flex flex-row">
+    <div class="animate-spin h-5 w-5 bg-black mr-8">
+    </div>
+    <div class="animate-spin h-5 w-5 bg-black mr-8">
+    </div>
+    <div class="animate-spin h-5 w-5 bg-black">
+    </div>
   </div>
 </div>

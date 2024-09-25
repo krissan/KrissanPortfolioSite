@@ -1,50 +1,32 @@
 <main class="main" class="font-sans scroll-smooth">
   <app-landing #landingSection></app-landing>
   <div class="main-content">
-    <div #knowledgeSection>
-      <div *ngIf="isLoadingKnowledge">Loading Knowledge...</div>
-      <div *ngIf="!isLoadingKnowledge && knowledge">
-        <knowledge-section [knowledgeData]="knowledge"></knowledge-section>
-      </div>
+    <div id="knowledgeSection" class="bg-white">
+      <knowledge-section [knowledgeData]="knowledge" [isLoading]="isLoadingKnowledge"></knowledge-section>
     </div>
 
-    <div #experienceSection>
-      <div *ngIf="isLoadingExperience">Loading Experience...</div>
-      <div *ngIf="!isLoadingExperience && experiences">
-        <experience-section [experienceData]="experiences"></experience-section>
-      </div>
+    <div id="experienceSection" class="bg-peach">
+      <experience-section [experienceData]="experiences" [isLoading]="isLoadingExperience"></experience-section>
     </div>
 
-    <div #credentialSection>
-      <div *ngIf="isLoadingCredential">Loading Credential...</div>
-      <div *ngIf="!isLoadingCredential && credentials">
-        <credential-section [credentialData]="credentials"></credential-section>
-      </div>
+    <div id="credentialSection" class="bg-white">
+      <credential-section [credentialData]="credentials" [isLoading]="isLoadingCredential"></credential-section>
     </div>
 
-    <div #projectSection>
-      <div *ngIf="isLoadingProject">Loading Project...</div>
-      <div *ngIf="!isLoadingProject && projects">
-        <project-section [projectData]="projects"></project-section>
-      </div>
+    <div id="projectSection" class="bg-peach">
+      <project-section [projectData]="projects" [isLoading]="isLoadingCredential"></project-section>
     </div>
 
-    <div #leadershipSection>
-      <div *ngIf="isLoadingLeadership">Loading Leadership...</div>
-      <div *ngIf="!isLoadingLeadership && leadership">
-        <leadership-section [leadershipData]="leadership"></leadership-section>
-      </div>
+    <div id="leadershipSection" class="bg-white">
+      <leadership-section [leadershipData]="leadership" [isLoading]="isLoadingLeadership"></leadership-section>
     </div>
 
-    <div #languageSection>
-      <div *ngIf="isLoadingLanguage">Loading Language...</div>
-      <div *ngIf="!isLoadingLanguage && languages">
-        <language-section [languageData]="languages"></language-section>
-      </div>
+    <div id="languageSection" class="bg-peach">
+      <language-section [languageData]="languages" [isLoading]="isLoadingLanguage"></language-section>
     </div>
 
-    <div *ngIf="error">
-      {{ error }}
+    <div data-aos="fade-up" data-aos-delay="100" id="contactSection" class="bg-white">
+      <contact-section></contact-section>
     </div>
   </div>
 </main>

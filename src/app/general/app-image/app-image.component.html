@@ -1,0 +1,19 @@
+<img
+(mouseover)="imgState = 'hover'"
+(mouseleave)="imgState = 'no-hover'"
+[@imgGrow]="imgState"
+(click)="openModal()"
+[src]="utilService.getSanityImageUrl(src)"
+class="object-contain cursor-pointer" />
+
+<!-- Modal for enlarged image -->
+<div *ngIf="isModalOpen" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 z-50">
+  <div class="relative flex flex-col justify-start h-full w-full overflow-auto">
+    <div class="flex flex-row justify-end mr-4 mt-4">
+      <button class="text-white text-6xl" (click)="closeModal()">&#10006;</button>
+    </div>
+    <div class="my-auto mx-auto">
+      <img [src]="utilService.getSanityImageUrl(src)" [alt]="alt" class="max-h-[90%] w-full bg-white" />
+    </div>
+  </div>
+</div>
