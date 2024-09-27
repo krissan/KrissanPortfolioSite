@@ -60,35 +60,47 @@ export class AppComponent {
     // Sequentially load all datasets
     this.sanityService.fetchKnowledge().pipe(
       tap(async data => {
-        this.knowledge = this.utilService.customSort(data.result,'order');
-        const icons = this.knowledge.flatMap(category => category.item);
-        await this.iconService.addIconList(icons);
+        if (data.result && Array.isArray(data.result)) {
+          this.knowledge = this.utilService.customSort(data.result,'order');
+          const icons = this.knowledge.flatMap(category => category.item);
+          await this.iconService.addIconList(icons);
+        }
         this.isLoadingKnowledge = false;
       }),
       concatMap(() => this.sanityService.fetchExperience()),
       tap(data => {
-        this.experiences = this.utilService.customSort(data.result,'startDate');
-        this.isLoadingExperience = false;
+        if (data.result && Array.isArray(data.result)) {
+          this.experiences = this.utilService.customSort(data.result,'startDate');
+          this.isLoadingExperience = false;
+        }
       }),
       concatMap(() => this.sanityService.fetchCredential()),
       tap(data => {
-        this.credentials = this.utilService.customSort(data.result,'order');
-        this.isLoadingCredential = false;
+        if (data.result && Array.isArray(data.result)) {
+          this.credentials = this.utilService.customSort(data.result,'order');
+          this.isLoadingCredential = false;
+        }
       }),
       concatMap(() => this.sanityService.fetchProject()),
       tap(data => {
-        this.projects = this.utilService.customSort(data.result,'startDate');
-        this.isLoadingProject = false;
+        if (data.result && Array.isArray(data.result)) {
+          this.projects = this.utilService.customSort(data.result,'startDate');
+          this.isLoadingProject = false;
+        }
       }),
       concatMap(() => this.sanityService.fetchLeadership()),
       tap(data => {
-        this.leadership = this.utilService.customSort(data.result,'startDate');
-        this.isLoadingLeadership = false;
+        if (data.result && Array.isArray(data.result)) {
+          this.leadership = this.utilService.customSort(data.result,'startDate');
+          this.isLoadingLeadership = false;
+        }
       }),
       concatMap(() => this.sanityService.fetchLanguage()),
       tap(data => {
-        this.languages = this.utilService.customSort(data.result,'order');
-        this.isLoadingLanguage = false;
+        if (data.result && Array.isArray(data.result)) {
+          this.languages = this.utilService.customSort(data.result,'order');
+          this.isLoadingLanguage = false;
+        }
       }),
       catchError(err => {
         this.error = 'Failed to load data';

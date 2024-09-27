@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { IconDefinition, icon as faIcon, icon } from '@fortawesome/fontawesome-svg-core';
 import { IconPicker, Item } from '../../../typings';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IconService {
   public loadedIcons: Map<string,Item> = new Map();
+  private loadingIconsSubject = new BehaviorSubject<boolean>(true);
+  public loadingIcons$ = this.loadingIconsSubject.asObservable();
 
   constructor(private library: FaIconLibrary) {}
 
@@ -15,7 +18,7 @@ export class IconService {
     const iconKey:string = item.label;
     const itemName = itemValue.name;
     const iconName:string = itemName.substring(0,3) == "fa-" ? itemName.slice(3) : itemName;
-    let iconProvider:string = 'fab'; //default library to brand icons
+    let iconProvider:string = 'fab';
 
     try {
       //Check brand icons
@@ -44,20 +47,26 @@ export class IconService {
   }
 
   async addIconList(iconList:Item[]) {
-    //manually add question icon to fontawesome library
-    const iconModule = await import('@fortawesome/free-solid-svg-icons');
-    let iconValue = (iconModule as any)['faQuestion'] as IconDefinition;
-    this.library.addIcons(iconValue);
+    this.loadingIconsSubject.next(true);
+    try {
+      const iconModule = await import('@fortawesome/free-solid-svg-icons');
+      let iconValue = (iconModule as any)['faQuestion'] as IconDefinition;
+      this.library.addIcons(iconValue);
 
-    for (const item of iconList) {
-      if (!this.loadedIcons.has(item.label)) {
-        if (item.value?.name && item.value.name.slice(0, 2) == 'fa') {
-          await this.addFAIcon(item, item.value);
-        }
-        else {
-          this.loadedIcons.set(item.label.toLowerCase(), item);
+      for (const item of iconList) {
+        if (!this.loadedIcons.has(item.label)) {
+          if (item.value?.name && item.value.name.slice(0, 2) == 'fa') {
+            await this.addFAIcon(item, item.value);
+          }
+          else {
+            this.loadedIcons.set(item.label.toLowerCase(), item);
+          }
         }
       }
+    } catch (error) {
+      console.error(`Error adding IconList:`, error);
+    } finally {
+      this.loadingIconsSubject.next(false);
     }
   }
 }

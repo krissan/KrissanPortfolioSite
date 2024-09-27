@@ -1,8 +1,15 @@
 {
-  "build": {
-    "env": {
-      "SANITY_PROJECT_ID": "@sanity_project_id",
-      "DATASET": "@dataset"
+  "version": 2,
+  "public": true,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api"
+    }
+  ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "dist/krissan-portfolio-site/**"
     }
   }
 }

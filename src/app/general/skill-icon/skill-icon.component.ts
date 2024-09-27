@@ -1,13 +1,13 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
-import { IconPicker, Item, SanityImage } from '../../../typings';
+import { Component, Input } from '@angular/core';
+import { IconPicker, SanityImage } from '../../../typings';
 import { CommonModule } from '@angular/common';
 import * as SimpleIcons from 'simple-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconService } from '../icon/icon.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { environment } from '../../../environments/environment.prod';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { UtilService } from '../util/util.service';
+import { Subject, takeUntil,  } from 'rxjs';
 
 @Component({
   selector: 'skill-icon',
@@ -35,29 +35,38 @@ export class SkillIconComponent {
   iconName: string = 'question';
   iconProvider: string = 'fas';
   isLoading: boolean = true;
+  private unsubscribe$ = new Subject<void>();
 
   constructor(private iconService: IconService,  private sanitizer: DomSanitizer, public utilService: UtilService)
   {
   }
 
   ngOnInit() {
-    this.checkIfIconsLoaded();
+    this.checkLoadingState()
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['skill'] && !this.isLoading) {
-      this.updateIconData();
-    }
-  }
+  private checkLoadingState(){
+    this.iconService.loadingIcons$
+    .pipe(
+      takeUntil(this.unsubscribe$)
+    )
+    .subscribe((loading) => {
+      const isIconLoaded = this.iconService.loadedIcons.has(this.skill.toLowerCase());
 
-  private checkIfIconsLoaded() {
-    const interval = setInterval(() => {
-      if (this.iconService.loadedIcons.size > 0) {
-        this.isLoading = false;
-        clearInterval(interval); // Stop checking once icons are loaded
-        this.updateIconData(); // Update icon data now that it's loaded
+      this.isLoading = loading;
+
+      if (!loading || isIconLoaded) {
+        this.updateIconData();
+        this.unsubscribe$.next(); // Emit to complete the subscription
+        this.unsubscribe$.complete();
       }
-    }, 100); // Check every 100ms (you can adjust this as needed)
+    });
+  }
+
+  // Don't forget to handle the cleanup in ngOnDestroy
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   private updateIconData() {
@@ -68,7 +77,7 @@ export class SkillIconComponent {
       this.alternative = item.alternative;
       this.label = item.label;
 
-      this.iconProvider = this.icon?.provider ?? "fas";
+      this.iconProvider = this.icon?.provider ?? 'fas';
 
       if (this.icon?.provider === 'fas' || this.icon?.provider === 'fab') {
         this.iconName = this.icon.name;
